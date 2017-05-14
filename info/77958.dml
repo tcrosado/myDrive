@@ -1,0 +1,58 @@
+package pt.tecnico.myDrive;
+
+class User{
+	String name;
+	String username;
+	String password;
+	Bits mask;
+}
+
+class File{
+	Int id;
+	String name;
+	Date creation_date;
+	Date creation_modification;
+	Bits permissions;
+}
+
+class Directory extends File;
+
+class Link extends File{
+	String shortcut;
+}
+
+class Text extends File{
+	String content;
+}
+
+class Application extends File{
+	String path;
+}
+
+relation DirectoryHasUser{
+	Directory playsRole directory{
+		multiplicity 1;
+	}
+
+	User playsRole user{
+		multiplicity 1;
+	}
+}
+
+relation UserHasFile{
+	User playsRole user{
+		multiplicity 1;
+	}
+	File playsRole file{
+		multiplicity *;
+	}
+}
+
+relation DirectoryHasFile{
+	Directory playsRole directory{
+		multiplicity 1;
+	}
+	File playsRole file{
+		multiplicity *;
+	}
+}

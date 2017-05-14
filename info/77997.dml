@@ -1,0 +1,42 @@
+class User {
+	String username;
+	String password;
+	String nome;
+	String mask;
+}
+
+class File {
+	int id;
+	String nome;
+	String dataModificacao;
+	String permissoes;
+}
+
+class PlainFile extends File {
+	String conteudo;
+}
+
+class Dir extends File;
+
+class Link extends PlainFile;
+
+class App extends PlainFile;
+
+relation UserhasFile{
+	User playsRole user { multiplicity 1;}
+	File playsRole file{ multiplicity *;}
+}
+
+relation UserhasRootDir{
+	User playsRole user {multiplicity 1;}
+	Dir playsRole rootDir { multiplicity 1;}
+
+relation DirhasFiles{
+	Dir playsRole dir { multiplicity 1;}
+	File playsRole files { multiplicity 2..*;}
+}
+
+relation DomainRoothasUser {
+	.pt.ist.fenixframework.DomainRoot playsRole root { multiplicity 0..1;}
+	User playsRole user { multiplicity 0..1;}
+}

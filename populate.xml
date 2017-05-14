@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<myDrive>
+  <plain id="300000">
+    <path>/home</path>
+    <name>textfile</name>
+    <owner>jtb</owner>
+    <perm>rwxdr-w-</perm>
+    <contents>No querendo, ele esta sendo</contents>
+  </plain>
+  <app id="900000">
+    <path>/home</path>
+    <name>app</name>
+    <owner>root</owner>
+    <perm>rwxdr-x-</perm>
+    <method>pt.tecnico.myDrive.app.Hello</method>
+  </app>
+</myDrive>

@@ -1,0 +1,144 @@
+package pt.tecnico.myDrive.domain;
+
+class AppMyDrive{
+	Integer idFile;
+}
+
+class User{
+	String username;
+	String password;
+	String name;
+	String mask;
+}
+
+class File{
+	Integer id;
+	String name;
+	DateTime lastModification;
+	String mask;
+}
+
+class Directory extends File;
+
+class PlainFile extends File{
+	String text;
+}
+
+class Link extends PlainFile;
+
+class App extends PlainFile;
+
+class Login{
+	long token;
+	String path;
+	String username;
+	boolean active;
+	DateTime lastAccess;
+}
+
+class Variable{
+	String name;
+	String value;
+}
+
+class Association{
+	String extension;
+}
+
+relation AssociationHasApp{
+	Association playsRole assoc{
+		multiplicity 0..*;
+	}
+	
+	App playsRole app{
+		multiplicity 1;
+	}
+}
+
+class RootUser extends User;
+
+class GuestUser extends User;
+
+relation LoginSessionHasVariables{
+	Login playsRole session{
+		multiplicity 1;
+	}
+
+	Variable playsRole var{
+		multiplicity 0..*;
+	}
+}
+
+
+relation AppMyDriveHasLoginSession{
+	AppMyDrive playsRole app{
+		multiplicity 1;
+	}
+	Login playsRole session{
+		multiplicity 0..*;
+	}
+}
+
+relation AppMyDriveContainsUserRoot{  
+		AppMyDrive playsRole app{
+			multiplicity 1;
+		}
+		User playsRole user{
+			multiplicity 0..*;
+		}
+}
+
+relation AppMyDriveContainsDirRoot{  
+		AppMyDrive playsRole app{
+			multiplicity 1;
+		}
+		Directory playsRole dir{
+			multiplicity 1;
+		}
+}
+
+relation DomainRootHasAppMyDrive {
+  	.pt.ist.fenixframework.DomainRoot playsRole root {
+    	multiplicity 0..1;
+  	}
+  	AppMyDrive playsRole myDrive {
+    	multiplicity 0..1;
+  	}
+}
+
+relation UserHasExtensions{
+	User playsRole user{
+		multiplicity 1;
+	}
+	
+	Association playsRole extension{
+		multiplicity 0..*;
+	}
+}
+
+relation UserContainsFile{
+	User playsRole user{
+		multiplicity 1;
+	}
+	File playsRole file{
+		multiplicity *;
+	}
+}
+
+relation FileContainsDir{
+	File playsRole file{
+		multiplicity *;
+	}
+	Directory playsRole dir{
+		multiplicity 1;
+	}
+}
+
+relation UserhasHomeDir{
+	User playsRole homeUser{
+		multiplicity 1;
+	}
+	Directory playsRole homeDir{
+		multiplicity 1;
+	}
+}
